@@ -57,18 +57,16 @@ async def activity(message: Message, state: FSMContext):
     data = await state.get_data()
     last_dict = generating()
     user_id = str(message.from_user.id)
-    if user_id not in last_dict.keys():
-        connection = sqlite3.connect('tablet.sql')
-        cursor = connection.cursor()
-        calories = calculate_calories(data["age"], data["weight"], data["height"], data["sex"],  data["activity"])
-        sql = f'INSERT INTO users (ides, calories) VALUES ("{user_id}","{calories}")'
-        cursor.execute(sql)
-        connection.commit()
-        await message.answer(f"{calories}")
-        await state.clear()
-    else:
-        await message.answer(generating()[user_id])
-        await state.clear()
+
+    connection = sqlite3.connect('tablet.sql')
+    cursor = connection.cursor()
+    calories = calculate_calories(data["age"], data["weight"], data["height"], data["sex"],  data["activity"])
+    sql = f'INSERT INTO users (ides, calories) VALUES ("{user_id}","{calories}")'
+    cursor.execute(sql)
+    connection.commit()
+    await message.answer(f"{calories}")
+    await state.clear()
+    
     cursor.close()
     connection.close()
 
