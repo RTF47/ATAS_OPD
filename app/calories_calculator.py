@@ -1,7 +1,7 @@
 def calculate_calories(age, weight, height, sex, activity):
     if sex in ['male','мужской','m','м']:
         bmr = 10 * weight + 6.25 * height - 5 * age + 5
-    if sex == ['female','женский','f','ж']:
+    if sex in['female','женский','f','ж']:
         bmr = 10 * weight + 6.25 * height - 5 * age - 161
     if activity in ['sedentary','сидячий']:
         calories = bmr * 1.2
